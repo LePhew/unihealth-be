@@ -8,9 +8,12 @@ export class AdminService {
 
     constructor(@InjectRepository(AdminEntity) private adminRepository: Repository<AdminEntity>){}
 
-
     async getAll() {
         return await this.adminRepository.find();
+    }
+
+    async getOne(id: string): Promise<AdminEntity> {
+        return await this.adminRepository.findOne({ where: { id } })
     }
 
 }
