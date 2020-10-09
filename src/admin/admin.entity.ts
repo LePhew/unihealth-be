@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('admin')
-export class AdminEntity { 
+export class AdminEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -9,7 +9,7 @@ export class AdminEntity {
     @Column()
     username: string;
 
-    @Column()
+    @Column({ select: false })
     password: string;
 
     @Column()
@@ -20,4 +20,7 @@ export class AdminEntity {
 
     @Column()
     email: string;
+
+    @Column()
+    disabled: boolean;
 }
