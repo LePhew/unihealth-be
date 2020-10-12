@@ -4,4 +4,5 @@ export interface IAdminUser {
     name: string;
     lastname: string;
     email: string;
+    disabled: boolean;
 }

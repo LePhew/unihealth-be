@@ -4,7 +4,7 @@ import { UserService } from './user.service';
 @Controller('user')
 export class UserController {
 
-    constructor(private userService: UserService){}
+    constructor(private userService: UserService) { }
 
     @Get()
     getAll() {
@@ -13,7 +13,7 @@ export class UserController {
 
     @Get('/getOneById/:id')
     getOneById(@Param('id') id: string) {
-        return this.userService.getOneById(id);
+        return this.userService.getById(id);
     }
 
     @Post('/create')

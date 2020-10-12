@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IUser } from 'src/interfaces/IUser';
+import { IUser } from '../interfaces/IUser';
 import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 
@@ -14,11 +14,11 @@ export class UserService {
         return await this.userRepository.find();
     }
 
-    async getOneById(id: string) {
+    async getById(id: string) {
         return await this.userRepository.findOne({ where: { id } });
     }
 
-    async getUserByEmail(email: string) {
+    async getByEmail(email: string) {
         return await this.userRepository.findOne({ where: { email } })
     }
 
@@ -30,15 +30,14 @@ export class UserService {
 
     async update(id: string, data: Partial<UserEntity>): Promise<UserEntity> {
         await this.userRepository.update(id, data);
-        let user = await this.getOneById(id);
+        let user = await this.getById(id);
         return user;
     }
 
-    async delete(id: string){
-        let user = await this.getOneById(id);
+    async delete(id: string) {
+        let user = await this.getById(id);
         user.disabled = true;
         await this.update(id, user);
-        return await this.getOneById(id);
+        return await this.getById(id);
     }
-
 }
