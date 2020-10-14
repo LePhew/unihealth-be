@@ -1,3 +1,4 @@
+import { DonorStatus } from "src/enums/DonorStatus";
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { BloodType } from "../enums/BloodType";
 import { NotificationEntity } from "./notification.entity";
@@ -42,8 +43,8 @@ export class UserEntity {
     @Column({ length: 50 })
     address: string;
 
-    @Column()
-    donor: number;
+    @Column("enum", { enum: DonorStatus })
+    donor: DonorStatus;
 
     @Column()
     certification_id: string;
