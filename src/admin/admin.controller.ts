@@ -1,17 +1,18 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
-import { LocalAuthGuard } from '../auth/local-auth.guard';
+import { LocalAdminAuthGuard } from '../auth/local-auth.guard';
 import { IAdminUser } from '../interfaces/IAdminUser';
 import { AdminService } from './admin.service';
 
 @Controller('admin')
 export class AdminController {
 
-    constructor(private adminService: AdminService) { }
+    constructor(
+        private adminService: AdminService) { }
 
-    @UseGuards(LocalAuthGuard)
+    @UseGuards(LocalAdminAuthGuard)
     @Post('/auth')
     getAll() {
-        return this.adminService.getAll();
+        return this.adminService.login();
     }
 
     @Get('/getOneById/:id')

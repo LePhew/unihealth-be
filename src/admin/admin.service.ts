@@ -55,4 +55,8 @@ export class AdminService {
         throw new HttpException('NotFound', HttpStatus.NOT_FOUND);
     }
 
+    async login() {
+
+    }
+
 }
