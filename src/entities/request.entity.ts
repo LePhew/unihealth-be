@@ -1,3 +1,4 @@
+import { RequestStatus } from "../enums/RequestStatus";
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { BloodType } from '../enums/BloodType';
 
@@ -28,4 +29,6 @@ export class RequestEntity {
     @Column()
     note: string;
 
+    @Column()
+    status: RequestStatus;
 }
