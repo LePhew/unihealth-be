@@ -1,7 +1,6 @@
 import { DonorStatus } from "src/enums/DonorStatus";
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { BloodType } from "../enums/BloodType";
-import { NotificationEntity } from "./notification.entity";
 
 
 @Entity('user')
@@ -55,9 +54,8 @@ export class UserEntity {
     @Column()
     disabled: boolean;
 
-    @OneToMany(() => NotificationEntity, notification => notification.user)
     @Column()
-    notifications: NotificationEntity[];
+    notifications: string;
 
     @CreateDateColumn()
     created_date: Date;

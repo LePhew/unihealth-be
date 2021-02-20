@@ -2,7 +2,7 @@
     "type": "mysql",
     "host": "localhost",
     "port": 3306,
-    "username": "root",
+    "username": "apps",
     "password": "urn0td3c3nt",
     "database": "unihealth_db",
     "synchronize": true,
