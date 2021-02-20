@@ -1,7 +1,9 @@
+import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+
 import { RequestEntity } from '../entities/request.entity';
+import { IRequest } from 'src/interfaces/IRequest';
 
 @Injectable()
 export class RequestService {
@@ -16,7 +18,7 @@ export class RequestService {
         return await this.requestRepository.findOne({ where: { id } });
     }
 
-    async create(data: any) {
+    async create(data: IRequest) {
         let request = this.requestRepository.create();
         request.address = data.address;
         request.city = data.city;
@@ -24,7 +26,7 @@ export class RequestService {
         request.note = data.note;
         request.title = data.title;
         request.bloodType = data.bloodType;
-        request.responseDate = request.responseDate;
+        request.responseDate = data.responseDate;
         await this.requestRepository.save(request);
         return request;
     }

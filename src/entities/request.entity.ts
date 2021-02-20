@@ -1,5 +1,5 @@
 import { RequestStatus } from "../enums/RequestStatus";
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm";
 import { BloodType } from '../enums/BloodType';
 
 @Entity('request')
@@ -24,11 +24,16 @@ export class RequestEntity {
     address: string;
 
     @Column()
-    responseDate: Date;
+    responseDate: string;
 
     @Column()
     note: string;
 
     @Column()
     status: RequestStatus;
+
+    @BeforeInsert()
+    addStatus() {
+        this.status = RequestStatus.OPEN;
+    }
 }

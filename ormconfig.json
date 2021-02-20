@@ -6,6 +6,7 @@
     "password": "urn0td3c3nt",
     "database": "unihealth_db",
     "synchronize": true,
+    "ssl": true,
     "logging": true,
     "entities": [
         "dist/entities/*.entity.js"
