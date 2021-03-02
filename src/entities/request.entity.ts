@@ -1,5 +1,4 @@
-import { RequestStatus } from "../enums/RequestStatus";
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 import { BloodType } from '../enums/BloodType';
 
 @Entity('request')
@@ -11,29 +10,25 @@ export class RequestEntity {
     @Column({ length: 30 })
     title: string;
 
-    @Column()
+    @Column({ length: 3 })
     bloodType: BloodType;
 
-    @Column()
+    @Column({ length: 50 })
     country: string;
 
-    @Column({ length: 255 })
+    @Column({ length: 50 })
     city: string;
 
-    @Column()
+    @Column({ length: 120 })
     address: string;
 
-    @Column()
+    @Column({ length: 10 })
     responseDate: string;
 
-    @Column()
+    @Column({ length: 14 })
+    contact: string;
+
+    @Column( { nullable: true, length: 120 })
     note: string;
 
-    @Column()
-    status: RequestStatus;
-
-    @BeforeInsert()
-    addStatus() {
-        this.status = RequestStatus.OPEN;
-    }
 }
