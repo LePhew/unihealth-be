@@ -6,6 +6,7 @@
     "password": "%Sshell2k10_",
     "database": "unihealth_db",
     "synchronize": true,
+    "ssl": true,
     "logging": true,
     "entities": [
         "dist/entities/*.entity.js"
