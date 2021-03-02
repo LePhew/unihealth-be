@@ -24,7 +24,8 @@ export class RequestService {
         request.note = data.note;
         request.title = data.title;
         request.bloodType = data.bloodType;
-        request.responseDate = request.responseDate;
+        request.responseDate = data.responseDate;
+        request.contact = data.contact;
         await this.requestRepository.save(request);
         return request;
     }
