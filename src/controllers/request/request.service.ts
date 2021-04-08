@@ -1,8 +1,7 @@
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-
-import { RequestEntity } from '../entities/request.entity';
+import { RequestEntity } from '../../entities/request.entity';
 import { IRequest } from 'src/interfaces/IRequest';
 
 @Injectable()
@@ -11,7 +10,7 @@ export class RequestService {
     constructor(@InjectRepository(RequestEntity) private requestRepository: Repository<RequestEntity>) { }
 
     async getAll() {
-        return await this.requestRepository.find();
+        return await this.requestRepository.find({ relations: ["province", "municipality"] });
     }
 
     async getOne(id: string) {
@@ -21,8 +20,8 @@ export class RequestService {
     async create(data: IRequest) {
         let request = this.requestRepository.create();
         request.address = data.address;
-        request.city = data.city;
-        request.country = data.country;
+        request.provinceId = data.provinceId;
+        request.municipalityId = data.municipalityId;
         request.note = data.note;
         request.title = data.title;
         request.bloodType = data.bloodType;

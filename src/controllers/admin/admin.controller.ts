@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
-import { LocalAdminAuthGuard } from '../auth/local-auth.guard';
-import { IAdminUser } from '../interfaces/IAdminUser';
+import { LocalAdminAuthGuard } from '../../auth/local-auth.guard';
+import { IAdminUser } from '../../interfaces/IAdminUser';
 import { AdminService } from './admin.service';
 
 @Controller('admin')

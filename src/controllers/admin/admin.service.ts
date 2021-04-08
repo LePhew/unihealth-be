@@ -1,9 +1,9 @@
 import * as bcrypt from "bcrypt";
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IAdminUser } from '../interfaces/IAdminUser';
+import { IAdminUser } from '../../interfaces/IAdminUser';
 import { Repository } from 'typeorm';
-import { AdminEntity } from '../entities/admin.entity';
+import { AdminEntity } from '../../entities/admin.entity';
 
 @Injectable()
 export class AdminService {

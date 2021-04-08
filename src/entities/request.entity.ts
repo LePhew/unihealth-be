@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
 import { BloodType } from '../enums/BloodType';
+import { ProvinceEntity } from './province.entity';
+import { MunicipalityEntity } from './municipality.entity';
 
 @Entity('request')
 export class RequestEntity {
@@ -7,17 +9,26 @@ export class RequestEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ length: 30 })
+    @Column({ length: 50 })
     title: string;
 
     @Column({ length: 3 })
     bloodType: BloodType;
 
-    @Column({ length: 50 })
-    country: string;
+ 
+    @OneToOne(() => ProvinceEntity)
+    @JoinColumn()
+    province: ProvinceEntity;
+    
+    @Column({default: 0, nullable: false})
+    provinceId: number;
 
-    @Column({ length: 50 })
-    city: string;
+    @OneToOne(() => MunicipalityEntity)
+    @JoinColumn()
+    municipality: MunicipalityEntity;
+
+    @Column({default: 0, nullable: false})
+    municipalityId: number;
 
     @Column({ length: 120 })
     address: string;
