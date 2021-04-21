@@ -8,7 +8,8 @@ import { UserService } from '../user/user.service';
 export class ProfileService {
 
     constructor(
-        @InjectRepository(ProfilePictureEntity) private profileRepository: Repository<ProfilePictureEntity>,
+        @InjectRepository(ProfilePictureEntity)
+        private profileRepository: Repository<ProfilePictureEntity>,
         private readonly userService: UserService) { }
 
     async addProfilePicture(userId: string, pictureData: string) {

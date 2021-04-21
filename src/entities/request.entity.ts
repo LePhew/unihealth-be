@@ -15,7 +15,6 @@ export class RequestEntity {
     @Column({ length: 3 })
     bloodType: BloodType;
 
-
     @ManyToOne(() => ProvinceEntity)
     @JoinColumn()
     province: ProvinceEntity;
