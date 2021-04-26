@@ -6,9 +6,9 @@ export class RequestController {
 
     constructor(private requestService: RequestService) { }
 
-    @Get()
-    getAll() {
-        return this.requestService.getAll();
+    @Post()
+    getAll(@Body() data: any) {
+        return this.requestService.getAll(data.skip,data.take);
     }
     @Post('/create')
     create(@Body() data: any) {

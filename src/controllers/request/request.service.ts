@@ -9,8 +9,8 @@ export class RequestService {
 
     constructor(@InjectRepository(RequestEntity) private requestRepository: Repository<RequestEntity>) { }
 
-    async getAll() {
-        return await this.requestRepository.find({ relations: ["province", "municipality"] });
+    async getAll(skip: number, take: number) {
+        return await this.requestRepository.find({ relations: ["province", "municipality"], skip: skip, take: take })
     }
 
     async getOne(id: string) {
