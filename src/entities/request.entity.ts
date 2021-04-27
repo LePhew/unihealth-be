@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne, CreateDateColumn } from "typeorm";
 import { BloodType } from '../enums/BloodType';
 import { ProvinceEntity } from './province.entity';
 import { MunicipalityEntity } from './municipality.entity';
@@ -40,5 +40,8 @@ export class RequestEntity {
 
     @Column({ nullable: true, length: 120 })
     note: string;
+
+    @CreateDateColumn()
+    createdDate: Date;
 
 }
