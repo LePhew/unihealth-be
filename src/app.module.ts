@@ -9,9 +9,21 @@ import { ProfileModule } from './controllers/profile/profile.module';
 import { RequestModule } from './controllers/request/request.module';
 import { ProvienceModule } from './controllers/provience/provience.module';
 import { MunicipalityModule } from './controllers/municipality/municipality.module';
+import { TasksModule } from './tasks/tasks.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [UserModule, TypeOrmModule.forRoot(), AuthModule, AdminModule, ProfileModule, RequestModule, ProvienceModule, MunicipalityModule],
+  imports: [
+    UserModule,
+    ScheduleModule.forRoot(),
+    TypeOrmModule.forRoot(),
+    AuthModule,
+    AdminModule,
+    ProfileModule,
+    RequestModule,
+    ProvienceModule,
+    MunicipalityModule,
+    TasksModule],
   controllers: [AppController],
   providers: [AppService],
 })
