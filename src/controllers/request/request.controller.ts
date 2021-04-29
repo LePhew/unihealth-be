@@ -10,6 +10,10 @@ export class RequestController {
     getAll(@Body() data: any) {
         return this.requestService.getAll(data.skip,data.take);
     }
+    @Post('/getByProvince')
+    getByProvince(@Body() data: any) {
+        return this.requestService.getAllByProvince(data.provinceId);
+    }
     @Post('/create')
     create(@Body() data: any) {
         return this.requestService.create(data);

@@ -13,6 +13,13 @@ export class RequestService {
         return await this.requestRepository.find({ relations: ["province", "municipality"], skip: skip, take: take })
     }
 
+    async getAllByProvince(provinceId: number) {
+        return await this.requestRepository.find({
+            relations: ["province", "municipality"],
+            where: { provinceId },
+        })
+    }
+
     async getOne(id: string) {
         return await this.requestRepository.findOne({ where: { id } });
     }
