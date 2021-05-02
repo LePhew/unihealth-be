@@ -1,8 +1,8 @@
-import { Repository } from 'typeorm';
+import { Raw, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RequestEntity } from '../../entities/request.entity';
-import { IRequest } from 'src/interfaces/IRequest';
+import { IRequest } from '../../interfaces/IRequest';
 
 @Injectable()
 export class RequestService {
@@ -10,7 +10,11 @@ export class RequestService {
     constructor(@InjectRepository(RequestEntity) private requestRepository: Repository<RequestEntity>) { }
 
     async getAll(skip: number, take: number) {
-        return await this.requestRepository.find({ relations: ["province", "municipality"], skip: skip, take: take })
+        return await this.requestRepository.find({
+            relations: ["province", "municipality"], skip: skip, take: take, where: {
+                deleted: 0
+            }
+        });
     }
 
     async getAllByProvince(provinceId: number) {
@@ -21,7 +25,20 @@ export class RequestService {
     }
 
     async getOne(id: string) {
-        return await this.requestRepository.findOne({ where: { id } });
+        let request = await this.requestRepository.findOne({ where: { id } });
+        console.log(request.createdDate);
+        return request;
+    }
+
+    async getOld() {
+        let time = new Date();
+        const request = await this.requestRepository.find({
+            where: {
+                createdDate: Raw(alias => `${alias} < now() - INTERVAL 30 DAY`),
+                deleted: 0
+            }
+        });
+        return request;
     }
 
     async create(data: IRequest) {
@@ -41,5 +58,9 @@ export class RequestService {
     async delete(id: string) {
         await this.requestRepository.delete(id);
         return { requestDeleted: true };
+    }
+
+    async update(id: string, data: Partial<RequestEntity>) {
+        return await this.requestRepository.update(id, data);
     }
 }

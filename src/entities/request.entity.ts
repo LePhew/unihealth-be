@@ -32,7 +32,7 @@ export class RequestEntity {
     @Column({ length: 120 })
     address: string;
 
-    @Column({ length: 10 })
+    @Column()
     responseDate: string;
 
     @Column({ length: 14 })
@@ -41,7 +41,13 @@ export class RequestEntity {
     @Column({ nullable: true, length: 120 })
     note: string;
 
-    @CreateDateColumn()
+    @CreateDateColumn({
+        type: 'datetime',
+
+    })
     createdDate: Date;
+
+    @Column({ default: 0 })
+    deleted: Boolean;
 
 }
