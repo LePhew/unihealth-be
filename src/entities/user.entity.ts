@@ -1,6 +1,7 @@
 import { DonorStatus } from "src/enums/DonorStatus";
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn, BeforeInsert } from "typeorm";
 import { BloodType } from "../enums/BloodType";
+import * as bcrypt from 'bcrypt';
 
 
 @Entity('user')
@@ -8,9 +9,6 @@ export class UserEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
-
-    @Column({ nullable: true })
-    firebase_id: string;
 
     @Column({ length: 50 })
     name: string;
@@ -30,8 +28,8 @@ export class UserEntity {
     @Column("enum", { enum: BloodType })
     bloody_type: BloodType;
 
-    @Column()
-    phone: number;
+    @Column({ length: 12 })
+    phone: string;
 
     @Column({ length: 255, unique: true })
     email: string;
@@ -39,22 +37,22 @@ export class UserEntity {
     @Column({ select: false })
     password: string;
 
-    @Column({ length: 50 })
+    @Column({ length: 50, nullable: true })
     address: string;
 
     @Column("enum", { enum: DonorStatus })
     donor: DonorStatus;
 
-    @Column()
+    @Column({ nullable: true })
     certification_id: string;
 
-    @Column()
+    @Column({ nullable: true })
     profile_pic_id: string;
 
-    @Column()
+    @Column({ default: 0 })
     disabled: boolean;
 
-    @Column()
+    @Column({ default: null })
     notifications: string;
 
     @CreateDateColumn()
@@ -62,5 +60,16 @@ export class UserEntity {
 
     @UpdateDateColumn()
     last_updated_date: Date;
+
+
+    @BeforeInsert()
+    emailToLowerCase() {
+        this.email.toLowerCase();
+    }
+
+    @BeforeInsert()
+    hashPassword() {
+        this.password = bcrypt.hashSync(this.password, 10);
+    }
 
 }

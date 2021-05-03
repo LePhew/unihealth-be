@@ -11,7 +11,6 @@ export class TasksService {
 
     @Cron(CronExpression.EVERY_1ST_DAY_OF_MONTH_AT_MIDNIGHT)
     async updateOldRequests() {
-        console.log("I RAN!");
         let requests = await this.requestService.getOld();
         if (requests != []) {
             requests.forEach((req) => {

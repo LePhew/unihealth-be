@@ -34,6 +34,7 @@ export class RequestService {
         let time = new Date();
         const request = await this.requestRepository.find({
             where: {
+                //Raw allows a regular query execution on mysql
                 createdDate: Raw(alias => `${alias} < now() - INTERVAL 30 DAY`),
                 deleted: 0
             }

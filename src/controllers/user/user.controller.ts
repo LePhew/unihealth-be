@@ -1,11 +1,15 @@
-import { Controller, Get, Delete, Put, Post, Param, Body } from '@nestjs/common';
+import { Controller, Get, Delete, Put, Post, Param, Body, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { IUser } from '../../interfaces/IUser';
 import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
 
-    constructor(private userService: UserService) { }
+    constructor(
+        private userService: UserService) { }
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     getAll() {
         return this.userService.getAll();
@@ -17,7 +21,7 @@ export class UserController {
     }
 
     @Post('/create')
-    create(@Body() data: any) {
+    create(@Body() data: IUser) {
         return this.userService.create(data);
     }
 

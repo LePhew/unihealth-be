@@ -6,13 +6,13 @@ export interface IUser {
     name: string;
     lastname: string;
     age: number;
-    identity_document: string;
+    identity_document?: string;
     bloody_type: BloodType;
-    phone: number;
+    phone: string;
     email: string;
     password: string;
     address?: string;
     donor: DonorStatus;
-    certification_id: string;
-    profile_pic_id: string;
+    certification_id?: string;
+    profile_pic_id?: string;
 }

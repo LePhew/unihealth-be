@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IUser } from '../../interfaces/IUser';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../../entities/user.entity';
 
@@ -9,6 +8,16 @@ export class UserService {
     constructor(
         @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
     ) { }
+
+    /*
+    This function extracts all the column names from the repository so we don't have to specify
+    them on the places that we require all columns.
+
+    This allows us to keep the {select: false } on the entities
+    */
+    getCols<T>(repository: Repository<T>): (keyof T)[] {
+        return (repository.metadata.columns.map(col => col.propertyName) as (keyof T)[]);
+    }
 
     async getAll() {
         return await this.userRepository.find();
@@ -19,10 +28,10 @@ export class UserService {
     }
 
     async getByEmail(email: string) {
-        return await this.userRepository.findOne({ where: { email } })
+        return await this.userRepository.findOne({ where: { email }, select: this.getCols(this.userRepository) })
     }
 
-    async create(data: IUser) {
+    async create(data: any) {
         let user = this.userRepository.create(data);
         await this.userRepository.save(user);
         return { userCreated: true };
